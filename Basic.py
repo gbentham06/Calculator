@@ -104,9 +104,9 @@ def calculate(rpn):
         stack.append(sqrt(a))
       elif token == 'abs':
         stack.append(abs(a))
-    elif token == 'pi':
+    elif token.upper() == 'PI':
       stack.append(PI)
-    elif token == 'e':
+    elif token.upper() == 'E':
       stack.append(E)
     else:
         stack.append(float(token))
