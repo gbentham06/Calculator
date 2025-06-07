@@ -73,8 +73,9 @@ def cos(x, acc=10):
 def tan(x, acc=10): # uses tan(x) = sin(x)/cos(x) identity
     sin_v, cos_v = sin(x, acc), cos(x, acc)
     if abs(cos_v) < 1e-15:
-        raise ValueError("Undefined")
+        raise ValueError("Undefined: too close to zero")
     return sin_v / cos_v
 
 def rad_to_deg(rad):
     return rad * PI / 180.0
+

@@ -77,39 +77,46 @@ def postfix_notation(tokens):  # renamed param to tokens for clarity
 
 def calculate(rpn):
   stack = []
+  bin_opers = {
+    '+':lambda x, y: x + y,
+    '-':lambda x, y: x - y,
+    '*':lambda x, y: x * y,
+    '/':lambda x, y: x / y,
+    '%':lambda x, y: x % y,
+    '^':lambda x, y: x ** y
+  }
+
+  unary_opers = {
+    'sin':lambda x: sin(x),
+    'cos':lambda x: cos(x),
+    'tan':lambda x: tan(x),
+    'log':lambda x: log(x),
+    'abs':lambda x: abs(x),
+    'sqrt':lambda x: sqrt(x)
+  }
+
+  consts = {
+    'PI':PI,
+    'E':E
+  }
+
+  stack = []
   for token in rpn:
-    if token in "+-*/^":
-      a, b = stack.pop(), stack.pop()
-      if token == '+':
-        stack.append(b+a)
-      elif token == "-":
-        stack.append(b-a)
-      elif token == "*":
-        stack.append(b*a)
-      elif token == "/":
-        stack.append(b/a)
-      elif token == "^":
-          stack.append(b**a)
-    elif token in ['sin', 'cos', 'tan', 'log', 'sqrt', 'abs']:
+
+    if token in bin_opers: # handles binary ops
       a = stack.pop()
-      if token == 'sin':
-        stack.append(sin(a))
-      elif token == 'cos':
-        stack.append(cos(a))
-      elif token == 'tan':
-        stack.append(tan(a))
-      elif token == 'log':
-        stack.append(log(a))
-      elif token == 'sqrt':
-        stack.append(sqrt(a))
-      elif token == 'abs':
-        stack.append(abs(a))
-    elif token.upper() == 'PI':
-      stack.append(PI)
-    elif token.upper() == 'E':
-      stack.append(E)
+      b = stack.pop()
+      stack.append(bin_opers[token](b, a))
+
+    elif token in unary_opers: # handles unary ops
+      a = stack.pop()
+      stack.append(unary_opers[token](a))
+
+    elif token.upper() in consts: # handles constants
+      stack.append(consts[token.upper()])
+
     else:
-        stack.append(float(token))
+      stack.append(float(token)) # handles numbers
   return stack[0] if stack else None
 
 
