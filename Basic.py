@@ -92,7 +92,8 @@ def calculate(rpn):
     'tan':lambda x: tan(x),
     'log':lambda x: log(x),
     'abs':lambda x: abs(x),
-    'sqrt':lambda x: sqrt(x)
+    'sqrt':lambda x: sqrt(x),
+    'ln':lambda x: ln(x)
   }
 
   consts = {
