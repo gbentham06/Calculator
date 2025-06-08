@@ -65,7 +65,7 @@ def sin(x, acc=10): # calculated via taylor series
         sign *= -1
         numerator *= x * x  # Increase power to x^(2n+3)
         denominator *= (2 * n + 2) * (2 * n + 3)  # too complex for factorial()
-    return sine if abs(sine) > 1e-5 else 0
+    return sine if abs(sine)%1 > 1e-5 else float(int(sine))
 
 
 def cos(x, acc=10):
@@ -83,7 +83,7 @@ def cos(x, acc=10):
         sign *= -1
         numerator *= x * x  # Increase power to x^(2n+2)
         denominator *= (2 * n + 1) * (2 * n + 2)  # see equivalent sin() comment
-    return cosine if abs(cosine) > 1e-10 else 0
+    return cosine if abs(cosine)%1 > 1e-5 else float(int(cosine))
 
 
 def tan(x, acc=10): # uses tan(x) = sin(x)/cos(x) identity
